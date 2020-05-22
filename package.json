@@ -1,0 +1,68 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://salyan.postalservice.gov.np",
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.1.2",
+    "ad-bs-converter": "^0.5.0",
+    "apollo-boost": "^0.4.7",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "formik": "^2.1.4",
+    "gh-pages": "^2.2.0",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
+    "moment": "^2.24.0",
+    "moment-with-locales-es6": "^1.0.1",
+    "nepali-calendar-js": "^1.0.4",
+    "node-sass": "^4.14.0",
+    "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
+    "react-bootstrap": "^1.0.1",
+    "react-dark-theme": "^1.1.1",
+    "react-device-detect": "^1.11.14",
+    "react-dom": "^16.13.1",
+    "react-facebook": "^8.1.4",
+    "react-horizontal-timeline": "^1.5.3",
+    "react-icons": "^3.10.0",
+    "react-intl": "^3.12.1",
+    "react-loader-spinner": "^3.1.14",
+    "react-marquee-line": "^1.0.1",
+    "react-moment": "^0.9.7",
+    "react-nepali-calendar": "^1.1.5",
+    "react-photo-gallery": "^8.0.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.1",
+    "react-swipeable-views": "^0.13.9",
+    "styled-components": "^5.1.0",
+    "vertical-timeline-component-for-react": "^1.0.7",
+    "yup": "^0.28.4"
+  },
+  "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

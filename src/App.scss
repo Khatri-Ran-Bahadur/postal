@@ -1,0 +1,224 @@
+// Font
+@font-face {
+  font-family: "sf";
+  src: url("./assets/fonts/SFProDisplay-Medium.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "sf-text";
+  src: url("./assets/fonts/SFProText-Medium.ttf");
+  font-style: normal;
+}
+
+html {
+  --webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  --webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+body {
+  font-family: "sf-text" !important;
+  color: #696969;
+  margin: 25px;
+  padding: 0px;
+  box-shadow: 0 0 10px rgba(78, 78, 78, 0.54);
+}
+
+.search-btn {
+  &:active {
+    background: #2460b9;
+    border: 20px red solid;
+  }
+
+  &:hover {
+    background: #2460b9;
+  }
+}
+
+.hexagon {
+  position: relative;
+  width: 128px;
+  height: 73.9px;
+  background-color: #f4f4f4;
+  margin: 36.95px 0;
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 64px solid transparent;
+  border-right: 64px solid transparent;
+}
+
+.hexagon:before {
+  bottom: 100%;
+  border-bottom: 36.95px solid #f4f4f4;
+}
+
+.hexagon:after {
+  top: 100%;
+  width: 0;
+  border-top: 36.95px solid #f4f4f4;
+}
+
+.disable-select {
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.highlight-hover {
+  &:hover {
+    cursor: pointer;
+    color: red;
+  }
+}
+
+// .row {
+//   margin-right: 0 !important;
+//   margin-left: 0 !important;
+// }
+
+.primary {
+  background-color: #2460b9 !important;
+  color: white !important;
+}
+
+// Nav
+.lang-svg {
+  height: 1.5em;
+  width: 1.5em;
+}
+.eye {
+  path {
+    fill: white;
+  }
+}
+.lang-text {
+  margin-right: 0.3em;
+}
+.a-plus {
+  margin-left: 0.5em;
+  padding: 0.5em;
+  margin-right: 0.5em;
+  &:hover {
+    background-color: #0a3c86;
+  }
+}
+
+.A-plus {
+  font-size: 1.2em !important;
+
+  button,
+  a {
+    font-size: 1.2em !important;
+  }
+}
+.A-middle {
+  font-size: 1em !important;
+
+  button,
+  a {
+    font-size: 1em !important;
+  }
+}
+.A-minus {
+  font-size: 0.7em !important;
+
+  button,
+  a {
+    font-size: 0.7em !important;
+  }
+}
+
+// Overrides
+.navbar-collapse {
+  background-color: #0a3c86;
+  color: rgba(255, 255, 255, 0.9);
+}
+.navbar-light,
+.navbar-nav,
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dropdown-item {
+  color: black !important;
+  text-transform: none;
+  &:active {
+    background: #215a97 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  &:hover {
+    background: #215a97 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+.nav-link:hover {
+  background: #2460b9 !important;
+}
+
+// Eye theme
+.eye-theme {
+  background: black !important;
+  color: yellow !important;
+  border: none !important;
+
+  div,
+  p,
+  a,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  table,
+  th,
+  tr,
+  time {
+    color: yellow !important;
+  }
+  h4 {
+    border-bottom: 2px solid yellow;
+  }
+  .toppart,
+  .TopNavbar,
+  .navbar,
+  .highlight,
+  .navbar-collapse,
+  .news-generic-badge,
+  .home-last-section,
+  .e-attendance,
+  .dropdown-item,
+  .dropdown-menu,
+  .card {
+    background: black !important;
+    color: yellow !important;
+    border: none !important;
+  }
+  .eye {
+    path {
+      fill: yellow;
+    }
+  }
+  .nav-link:hover {
+    background: black !important;
+    color: yellow !important;
+  }
+}
