@@ -7,6 +7,7 @@ import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Spinner from "../../components/Common/Spinner";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const ActRegulation = (props) => {
   const ActAndReguation = gql`
@@ -41,6 +42,7 @@ const ActRegulation = (props) => {
               if (loading) {
                 return <Spinner />;
               }
+              if (error) return <ErrorBoundary />;
               let actandregulation = data.actandRegulations.edges;
               return <FileAndDownloadTableAct data={actandregulation} />;
             }}

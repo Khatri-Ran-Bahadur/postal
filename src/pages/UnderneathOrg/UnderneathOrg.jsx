@@ -8,6 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Content } from "../../components/Common/Content";
 import Spinner from "../../components/Common/Spinner";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const UnderneathOrg = ({ engLang }) => {
   let query = gql`
@@ -37,18 +38,20 @@ const UnderneathOrg = ({ engLang }) => {
               if (loading) {
                 return <Spinner />;
               }
-              let underneathOrg = data.singlepost;
-              return (
-                <Content
-                  dangerouslySetInnerHTML={{
-                    __html: `${
-                      engLang
-                        ? underneathOrg.content
-                        : underneathOrg.singlepost.nepali
-                    }`,
-                  }}
-                ></Content>
-              );
+              if (!error) {
+                let underneathOrg = data.singlepost;
+                return (
+                  <Content
+                    dangerouslySetInnerHTML={{
+                      __html: `${
+                        engLang
+                          ? underneathOrg.content
+                          : underneathOrg.singlepost.nepali
+                      }`,
+                    }}
+                  ></Content>
+                );
+              }
             }}
           </Query>
         </Col>

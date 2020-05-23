@@ -7,6 +7,7 @@ import { Query } from "react-apollo";
 import Spinner from "../../components/Common/Spinner";
 import FileAndDownloadTable from "../../components/Common/FileAndDownloadTable";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const PostalRates = (props) => {
   const PostalRates = gql`
@@ -41,8 +42,10 @@ const PostalRates = (props) => {
               if (loading) {
                 return <Spinner />;
               }
-              let postalRates = data.postalRates.edges;
-              return <FileAndDownloadTable data={postalRates} />;
+              if (!error) {
+                let postalRates = data.postalRates.edges;
+                return <FileAndDownloadTable data={postalRates} />;
+              }
             }}
           </Query>
         </Col>

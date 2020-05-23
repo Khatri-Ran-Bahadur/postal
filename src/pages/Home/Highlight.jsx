@@ -2,11 +2,10 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import { Content } from '../../components/Common/Content';
+import { Content } from "../../components/Common/Content";
 import BikramSambatConverter from "../../lib/nepconverter";
 
-
-const Highlight = ({engLang, news,tender,circular}) => {
+const Highlight = ({ engLang, news, tender, circular }) => {
   let heighliteEnglish = "";
 
   const HighlightHandler = (item) => {
@@ -21,32 +20,39 @@ const Highlight = ({engLang, news,tender,circular}) => {
         publishedDate.getDate()
       );
     }
-    let mybs = bs_date.day + " , " + bs_date.nmonth + " , " + bs_date.date + " , " + bs_date.year;
+    let mybs =
+      bs_date.day +
+      " , " +
+      bs_date.nmonth +
+      " , " +
+      bs_date.date +
+      " , " +
+      bs_date.year;
     let englishdate = new Date(date);
-    let mydate = engLang ? englishdate.getFullYear() + "-" + englishdate.getMonth() + "-" + englishdate.getDate() : mybs;
+    let mydate = engLang
+      ? englishdate.getFullYear() +
+        "-" +
+        englishdate.getMonth() +
+        "-" +
+        englishdate.getDate()
+      : mybs;
     let title = engLang ? item.node.title : item.node.Nepali.nepaliTitle;
-    let html = "<span style='color:red'>" + mydate + "</span> &nbsp; &nbsp;" + title;
+    let html =
+      "<span style='color:red'>" + mydate + "</span> &nbsp; &nbsp;" + title;
     heighliteEnglish += html + " , ";
-  }
+  };
 
   if (news) {
-    news.map((item) => {
-      HighlightHandler(item);
-    });
+    news.map((item) => HighlightHandler(item));
   }
 
   if (tender) {
-    tender.map((item) => {
-      HighlightHandler(item);
-    });
+    tender.map((item) => HighlightHandler(item));
   }
 
   if (circular) {
-    circular.map((item) => {
-      HighlightHandler(item);
-    });
+    circular.map((item) => HighlightHandler(item));
   }
-
 
   return (
     <HighlightDiv>
@@ -58,10 +64,8 @@ const Highlight = ({engLang, news,tender,circular}) => {
         </Col>
         <Col>
           <div className="actual-highlight">
-            <marquee style={{marqueeSpeed: "fast"}}>
-              <Highttext
-                text={heighliteEnglish}
-              />
+            <marquee style={{ marqueeSpeed: "fast" }}>
+              <Highttext text={heighliteEnglish} />
             </marquee>
           </div>
         </Col>
@@ -71,22 +75,19 @@ const Highlight = ({engLang, news,tender,circular}) => {
 };
 
 const Highttext = ({ text }) => (
-  
   <Fragment>
     <div
       style={{
         height: "100%",
         display: "flex",
         justifyContent: "start",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <span className="text" className="highlight-hover">
         <Content
           dangerouslySetInnerHTML={{
-            __html: `${
-              text
-            }`
+            __html: `${text}`,
           }}
         ></Content>
       </span>

@@ -12,15 +12,16 @@ import Spinner from "../../components/Common/Spinner";
 import { FormattedMessage } from "react-intl";
 import { FacebookProvider, Page } from "react-facebook";
 import { Content } from "../../components/Common/Content";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const Home = (props) => {
   // news state
-  const [allNews, setAllNews] = useState();
-  const [allTenders, setAllTenders] = useState();
-  const [allCirculars, setAllCirculars] = useState();
-  const [allServices, setAllServices] = useState();
+  // const [allNews, setAllNews] = useState();
+  // const [allTenders, setAllTenders] = useState();
+  // const [allCirculars, setAllCirculars] = useState();
+  // const [allServices, setAllServices] = useState();
 
-  useEffect(() => {}, [allNews, allTenders, allCirculars, allServices]);
+  // useEffect(() => {}, [allNews, allTenders, allCirculars, allServices]);
   const navigate = (to) => props.history.push(to);
 
   const NewsQuery = gql`
@@ -115,20 +116,16 @@ const Home = (props) => {
     }
   `;
 
-  const {
-    loading: staffLoading,
-    error: staffError,
-    data: staffData,
-  } = useQuery(Staffs);
+  const { loading, error, data } = useQuery(Staffs);
 
   let firstStaff = [];
   let secondStaff = [];
 
-  if (!staffLoading & !staffError) {
-    firstStaff = staffData.staffs.edges.filter((item) => {
+  if (!loading & !error) {
+    firstStaff = data.staffs.edges.filter((item) => {
       return item.node.staff.sn === 1;
     });
-    secondStaff = staffData.staffs.edges.filter((item) => {
+    secondStaff = data.staffs.edges.filter((item) => {
       return item.node.staff.sn === 2;
     });
   }
@@ -141,28 +138,24 @@ const Home = (props) => {
     <HomeStyled>
       <div className="carousel-wrapper">
         <HomeCarousel />
-        <Highlight
+        {/* <Highlight
           engLang={props.engLang}
           news={allNews}
           tender={allTenders}
           circular={allCirculars}
-        />
+        /> */}
         {/* <Highlight news={allNews} /> */}
         <div className="services">
           <CardDeck className="news">
             <Card>
               <Query query={NewsQuery}>
-                {({
-                  loading: newsLoading,
-                  error: newsError,
-                  data: newsData,
-                }) => {
-                  if (newsLoading) {
+                {({ loading, error, data }) => {
+                  if (loading) {
                     return <Spinner />;
                   }
-                  if (newsData) {
-                    let news = newsData.allNewsAndNotices.edges;
-                    setAllNews(news);
+
+                  if (!error) {
+                    let news = data.allNewsAndNotices.edges;
 
                     return (
                       <HomePageNews
@@ -189,21 +182,23 @@ const Home = (props) => {
             </Card>
             <Card>
               <Query query={NewsTender}>
-                {({ loading: tenLoading, error: tenError, data: tenData }) => {
-                  if (tenLoading) {
+                {({ loading, error, data }) => {
+                  if (loading) {
                     return <Spinner />;
                   }
-                  let tender = tenData.allTenderNotice.edges;
-                  setAllTenders(tender);
-                  return (
-                    <HomePageNews
-                      pill={true}
-                      type="tender"
-                      pillText={tendernotice}
-                      data={tender}
-                      engLang={props.engLang}
-                    />
-                  );
+
+                  if (!error) {
+                    let tender = data.allTenderNotice.edges;
+                    return (
+                      <HomePageNews
+                        pill={true}
+                        type="tender"
+                        pillText={tendernotice}
+                        data={tender}
+                        engLang={props.engLang}
+                      />
+                    );
+                  }
                 }}
               </Query>
 
@@ -218,21 +213,22 @@ const Home = (props) => {
             </Card>
             <Card>
               <Query query={Circulars}>
-                {({ loading: cirLoading, error: cirError, data: cirData }) => {
-                  if (cirLoading) {
+                {({ loading, error, data }) => {
+                  if (loading) {
                     return <Spinner />;
                   }
-                  let circulars = cirData.allCirculars.edges;
-                  setAllCirculars(circulars);
-                  return (
-                    <HomePageNews
-                      type="circular"
-                      pill={true}
-                      pillText={circularnotice}
-                      data={circulars}
-                      engLang={props.engLang}
-                    />
-                  );
+                  if (!error) {
+                    let circulars = data.allCirculars.edges;
+                    return (
+                      <HomePageNews
+                        type="circular"
+                        pill={true}
+                        pillText={circularnotice}
+                        data={circulars}
+                        engLang={props.engLang}
+                      />
+                    );
+                  }
                 }}
               </Query>
               <div className="readmore">
@@ -277,65 +273,69 @@ const Home = (props) => {
             <Row>
               <Query query={Services}>
                 {({ loading, error, data }) => {
-                  if (loading) {
-                    return <Spinner />;
+                  if (loading) return <Spinner />;
+
+                  if (!error) {
+                    return (
+                      <Col md={9}>
+                        <Row>
+                          <CardDeck>
+                            {data.allServices.edges &&
+                              data.allServices.edges.map((service, index) => (
+                                <Col md={3} key={index}>
+                                  <Card style={{ margin: "0" }}>
+                                    <Card.Img
+                                      variant="top"
+                                      src={
+                                        service.node.featuredImage.mediaItemUrl
+                                      }
+                                    />
+                                    <Card.Body style={{ minHeight: "230px" }}>
+                                      <Card.Title>
+                                        {props.engLang
+                                          ? service.node.title
+                                          : service.node.services.title}
+                                      </Card.Title>
+                                      <Card.Text>
+                                        <Content
+                                          dangerouslySetInnerHTML={{
+                                            __html: `${
+                                              props.engLang
+                                                ? service.node.content.substring(
+                                                    0,
+                                                    100
+                                                  ) + "..."
+                                                : service.node.services.description.substring(
+                                                    0,
+                                                    100
+                                                  ) + "..."
+                                            }`,
+                                          }}
+                                        ></Content>
+                                      </Card.Text>
+                                    </Card.Body>
+                                    <Card.Footer>
+                                      <Button
+                                        className="primary"
+                                        onClick={() =>
+                                          navigate(
+                                            "/services/" + service.node.slug
+                                          )
+                                        }
+                                      >
+                                        Read More
+                                      </Button>
+                                    </Card.Footer>
+                                  </Card>
+                                </Col>
+                              ))}
+                          </CardDeck>
+                        </Row>
+                      </Col>
+                    );
                   }
-                  let services = data.allServices.edges;
-                  setAllServices(services);
-                  return <span></span>;
                 }}
               </Query>
-              <Col md={9}>
-                <Row>
-                  <CardDeck>
-                    {allServices &&
-                      allServices.map((service, index) => (
-                        <Col md={3} key={index}>
-                          <Card style={{ margin: "0" }}>
-                            <Card.Img
-                              variant="top"
-                              src={service.node.featuredImage.mediaItemUrl}
-                            />
-                            <Card.Body style={{ minHeight: "230px" }}>
-                              <Card.Title>
-                                {props.engLang
-                                  ? service.node.title
-                                  : service.node.services.title}
-                              </Card.Title>
-                              <Card.Text>
-                                <Content
-                                  dangerouslySetInnerHTML={{
-                                    __html: `${
-                                      props.engLang
-                                        ? service.node.content.substring(
-                                            0,
-                                            100
-                                          ) + "..."
-                                        : service.node.services.description.substring(
-                                            0,
-                                            100
-                                          ) + "..."
-                                    }`,
-                                  }}
-                                ></Content>
-                              </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                              <Button
-                                className="primary"
-                                onClick={() =>
-                                  navigate("/services/" + service.node.slug)
-                                }
-                              >
-                                Read More
-                              </Button>
-                            </Card.Footer>
-                          </Card>
-                        </Col>
-                      ))}
-                  </CardDeck>
-                </Row>
-              </Col>
               <Col md={3}>
                 {secondStaff[0] ? (
                   <Card className="director-card">

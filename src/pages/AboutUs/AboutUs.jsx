@@ -1,13 +1,13 @@
 import React from "react";
-import { Query, graphql } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
-
 import styled from "styled-components";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import { Row, Col } from "react-bootstrap";
 import { Content } from "../../components/Common/Content";
 import Spinner from "../../components/Common/Spinner";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const AboutUs = ({ engLang }) => {
   let query = gql`

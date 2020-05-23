@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import styled from "styled-components";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const EachNews = (props) => {
   const { slug } = props.match.params;

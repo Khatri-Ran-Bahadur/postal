@@ -8,6 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Content } from "../../components/Common/Content";
 import Spinner from "../../components/Common/Spinner";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const PolicyProgram = ({ engLang }) => {
   let query = gql`
@@ -32,8 +33,6 @@ const PolicyProgram = ({ engLang }) => {
               if (loading) {
                 return <Spinner />;
               }
-              console.log(error);
-
               if (!error) {
                 let policyData = data.singlepost;
                 return (

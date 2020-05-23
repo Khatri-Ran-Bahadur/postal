@@ -5,11 +5,10 @@ import VericleTimeline from "../../components/Common/VericleTimeline";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo";
 import Spinner from "../../components/Common/Spinner";
-import BikramSambatConverter from "../../lib/nepconverter";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
-const Tender = props => {
+const Tender = (props) => {
   let today = new Date();
-  let [newsData, setNewsData] = useState();
 
   let [currentMonth, setCurrentMonth] = useState(today.getMonth());
   let [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -47,10 +46,8 @@ const Tender = props => {
     gql(TenderQuery),
     { notifyOnNetworkStatusChange: true }
   );
-  const bsConvertor = new BikramSambatConverter();
   if (networkStatus === 4) return <Spinner />;
   if (loading) return <Spinner />;
-
   const loadMore = () => {
     if (currentMonth === 1) {
       setCurrentMonth(12);
@@ -86,7 +83,7 @@ const Tender = props => {
           style={{
             textAlign: "center",
             paddingTop: "2em",
-            paddingBottom: "2em"
+            paddingBottom: "2em",
           }}
         >
           {props.engLang ? "No Tender found" : "कुनै बोलपत्रहरू फेला परेन"}
@@ -94,7 +91,7 @@ const Tender = props => {
       )}
       <div
         style={{
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <button

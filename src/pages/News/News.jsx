@@ -8,10 +8,10 @@ import VericleTimeline from "../../components/Common/VericleTimeline";
 import Spinner from "../../components/Common/Spinner";
 import BikramSambatConverter from "../../lib/nepconverter";
 import { ALL_MONTHS } from "../../lib/allMonths";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
-const News = props => {
+const News = (props) => {
   let today = new Date();
-  let [newsData, setNewsData] = useState();
 
   let [currentMonth, setCurrentMonth] = useState(today.getMonth());
   let [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -52,7 +52,6 @@ const News = props => {
   );
   const bsConvertor = new BikramSambatConverter();
 
- 
   if (networkStatus === 4) return <Spinner />;
   if (loading) return <Spinner />;
 
@@ -89,7 +88,7 @@ const News = props => {
           style={{
             textAlign: "center",
             paddingTop: "2em",
-            paddingBottom: "2em"
+            paddingBottom: "2em",
           }}
         >
           {props.engLang ? "No News found" : "कुनै समाचार फेला परेन"}
@@ -98,7 +97,7 @@ const News = props => {
 
       <div
         style={{
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <button
@@ -128,7 +127,7 @@ const YearSelecterComponent = ({ engLang }) => {
 
   return (
     <select>
-      {years.map(year => {
+      {years.map((year) => {
         return <option>{year}</option>;
       })}
     </select>

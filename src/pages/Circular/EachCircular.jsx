@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import styled from "styled-components";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const EachCircular = (props) => {
   const { slug } = props.match.params;
@@ -32,7 +33,7 @@ const EachCircular = (props) => {
     return <Spinner />;
   }
 
-  if (!error)
+  if (!error) {
     return (
       <EachCircularDiv>
         <Row>
@@ -61,6 +62,7 @@ const EachCircular = (props) => {
         </Row>
       </EachCircularDiv>
     );
+  }
 };
 
 export default EachCircular;

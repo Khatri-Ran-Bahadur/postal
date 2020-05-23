@@ -1,6 +1,5 @@
 import React from "react";
 import { FooterDiv } from "./Footer.syled";
-import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo";
 
@@ -69,10 +68,10 @@ const Footer = ({ engLang }) => {
             <div className="f-content f-others">
               <ul className="list-unstyled">
                 <li>
-                  <Link to="/department/underneath-org">संगठनात्मक ढाँचा</Link>
+                  <a href="/department/underneath-org">संगठनात्मक ढाँचा</a>
                 </li>
                 <li>
-                  <Link to="/contact-us">सम्पर्क सूचि</Link>
+                  <a href="/contact-us">सम्पर्क सूचि</a>
                 </li>
                 <li>
                   <a href="detail/postal-codes-of-nepal.html">

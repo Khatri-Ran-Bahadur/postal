@@ -11,10 +11,10 @@ import { ReactComponent as Tweet } from "./assets/twitter.svg";
 import { ReactComponent as Toll } from "./assets/toll.svg";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import gql from "graphql-tag";
-import { Query, useQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
 import Spinner from "../../components/Common/Spinner";
 import GoogleMap from "./GoogleMap";
-
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const ContactUs = ({ engLang }) => {
   const contactus = gql`
@@ -41,6 +41,7 @@ const ContactUs = ({ engLang }) => {
   `;
 
   const { loading, error, data } = useQuery(contactus);
+  if (loading) return <Spinner />;
   let address1;
   let address;
   let email;
@@ -149,9 +150,9 @@ const ContactUs = ({ engLang }) => {
         <Spinner />
       )}
       <Row>
-          <Card className="map-card" style={{width:"100%"}}>
-            <GoogleMap/>
-          </Card>
+        <Card className="map-card" style={{ width: "100%" }}>
+          <GoogleMap />
+        </Card>
       </Row>
       <Row>
         <Col>

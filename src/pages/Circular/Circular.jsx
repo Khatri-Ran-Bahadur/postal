@@ -48,7 +48,6 @@ const Circular = (props) => {
 
   if (networkStatus === 4) return <Spinner />;
   if (loading) return <Spinner />;
-  if (error) return <ErrorBoundary />;
   const loadMore = () => {
     if (currentMonth === 1) {
       setCurrentMonth(12);

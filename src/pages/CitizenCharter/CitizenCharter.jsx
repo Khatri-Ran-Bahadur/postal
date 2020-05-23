@@ -8,6 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Content } from "../../components/Common/Content";
 import "./style.css";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const CitizenCharter = ({ engLang }) => {
   let query = gql`

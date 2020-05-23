@@ -5,7 +5,8 @@ import Spinner from "../../components/Common/Spinner";
 import styled from "styled-components";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import NewsListBox from "../../components/NewsListBox/NewsListBox";
-const SearchPage = props => {
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
+const SearchPage = (props) => {
   const { search } = props.match.params;
   const SEARCH_QUERY = `
     {
@@ -23,7 +24,7 @@ const SearchPage = props => {
 
   const { loading, error, data } = useQuery(gql(SEARCH_QUERY));
   if (loading) return <Spinner />;
-
+  if (error) return <ErrorBoundary />;
   return (
     <SearchDiv>
       <EachPageHeading title={`Search Term : ${search}`} />
@@ -31,7 +32,7 @@ const SearchPage = props => {
         <div style={{ textAlign: "center" }}>Sorry, No results found</div>
       ) : (
         <div>
-          {data.searchResults.edges.map(item => {
+          {data.searchResults.edges.map((item) => {
             return <EachSearchResult item={item} props={props} />;
           })}
         </div>
@@ -82,9 +83,7 @@ const EachSearchResult = ({ item, props }) => {
   `;
 
   const { loading, error, data } = useQuery(gql(gqlLiteral));
-
   if (loading) return <Spinner />;
-  console.log(data);
 
   if (!data) {
     return <div />;

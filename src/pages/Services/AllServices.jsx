@@ -7,6 +7,7 @@ import EachPageHeading from "../../components/Common/EachPageHeading";
 import { Content } from "../../components/Common/Content";
 import Spinner from "../../components/Common/Spinner";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const AllServices = (props) => {
   let engLang = props.engLang;
@@ -48,9 +49,11 @@ const AllServices = (props) => {
                   if (loading) {
                     return <Spinner />;
                   }
-                  let services = data.allServices.edges;
-                  setAllServices(services);
-                  return <span></span>;
+                  if (!error) {
+                    let services = data.allServices.edges;
+                    setAllServices(services);
+                    return <span></span>;
+                  }
                 }}
               </Query>
               {allServices &&

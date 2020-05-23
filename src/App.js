@@ -47,7 +47,7 @@ import ErrorBoundary from "./components/Error/ErrorBoundary";
 
 // Appollo client helps to
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
+  uri: "http://salyan.postalservice.gov.np/admin/graphql",
 });
 
 const history = createBrowserHistory();
@@ -81,7 +81,7 @@ const App = () => {
               toggleEye={toggleEye}
               setToggleEye={setToggleEye}
             />
-            <ScrollToTop>
+            <ScrollToTop history={history}>
               <Switch>
                 <Route
                   exact

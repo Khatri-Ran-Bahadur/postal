@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { Content } from "../../components/Common/Content";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import Spinner from "../../components/Common/Spinner";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const Gallery = () => {
   let query = gql`

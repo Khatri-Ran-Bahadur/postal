@@ -6,6 +6,7 @@ import { Query } from "react-apollo";
 import EachPageHeading from "../../components/Common/EachPageHeading";
 import Spinner from "../../components/Common/Spinner";
 import { Table } from "react-bootstrap";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const StaffDetails = () => {
   let staffQuery = gql`
@@ -37,44 +38,45 @@ const StaffDetails = () => {
 
       <Query query={staffQuery}>
         {({ loading, error, data }) => {
-          console.log(data);
           if (loading) {
             return <Spinner />;
           }
-          return (
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Staff Name</th>
-                  <th>Designation</th>
-                  <th>Email</th>
-                  <th>Office No.</th>
-                  <th>Photo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.staffs.edges.map((item) => {
-                  return (
-                    <tr key={item.node.staff.sn}>
-                      <td>{item.node.staff.sn}</td>
-                      <td>{item.node.staff.name}</td>
-                      <td>{item.node.staff.designation}</td>
-                      <td>{item.node.staff.email}</td>
-                      <td>{item.node.staff.officeNumber}</td>
-                      <td>
-                        <img
-                          style={{ height: "80px" }}
-                          src={item.node.staff.photo.sourceUrl}
-                          alt={item.node.staff.staffName}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-          );
+          if (!error) {
+            return (
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Staff Name</th>
+                    <th>Designation</th>
+                    <th>Email</th>
+                    <th>Office No.</th>
+                    <th>Photo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.staffs.edges.map((item) => {
+                    return (
+                      <tr key={item.node.staff.sn}>
+                        <td>{item.node.staff.sn}</td>
+                        <td>{item.node.staff.name}</td>
+                        <td>{item.node.staff.designation}</td>
+                        <td>{item.node.staff.email}</td>
+                        <td>{item.node.staff.officeNumber}</td>
+                        <td>
+                          <img
+                            style={{ height: "80px" }}
+                            src={item.node.staff.photo.sourceUrl}
+                            alt={item.node.staff.staffName}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            );
+          }
         }}
       </Query>
     </StaffDetailsDiv>

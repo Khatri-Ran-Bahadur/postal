@@ -8,6 +8,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { Content } from "../../components/Common/Content";
 import Spinner from "../../components/Common/Spinner";
 import CollectionNewsListBox from "../../components/Common/CollectionNewsListBox";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const EachService = (props) => {
   const navigate = (to) => props.history.push(to);

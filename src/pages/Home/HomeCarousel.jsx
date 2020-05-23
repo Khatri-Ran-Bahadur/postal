@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "react-apollo";
 import { Carousel } from "react-bootstrap";
 import Spinner from "../../components/Common/Spinner";
+import ErrorBoundary from "../../components/Error/ErrorBoundary";
 
 const HomeCarousel = () => {
   const SliderQuery = gql`
@@ -30,6 +31,7 @@ const HomeCarousel = () => {
   if (loading) {
     return <Spinner />;
   }
+  if (error) return <ErrorBoundary />;
 
   return (
     <div>

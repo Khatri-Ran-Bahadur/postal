@@ -41,13 +41,15 @@ const RightToInformation = (props) => {
               if (loading) {
                 return <Spinner />;
               }
-              let rightToInformations = data.rightToInformations.nodes;
-              return (
-                <RightToInformationFile
-                  data={rightToInformations}
-                  engLang={props.engLang}
-                />
-              );
+              if (!error) {
+                let rightToInformations = data.rightToInformations.nodes;
+                return (
+                  <RightToInformationFile
+                    data={rightToInformations}
+                    engLang={props.engLang}
+                  />
+                );
+              }
             }}
           </Query>
         </Col>

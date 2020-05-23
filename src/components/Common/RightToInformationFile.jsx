@@ -1,7 +1,5 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import Moment from "react-moment";
-import { ReactComponent as Pdf } from "../../assets/images/pdf.svg";
 import { ReactComponent as Download } from "../../assets/images/download.svg";
 const RightToInformationFile = ({ header, data, engLang }) => {
   return (
